@@ -79,15 +79,11 @@ function draw(){
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
 	ctx.strokeStyle="#fff"
 
-	console.log(dots)
-
 	for(i=0;i<dots.length;i++){
 		ctx.beginPath()
 			ctx.fillStyle = "rgb("+ (255-(Math.round(dots[i].c*255))) + "," + (255-(Math.round(dots[i].c*255))) + "," + (255-(Math.round(dots[i].c*255))) + ")";
-			//console.log(ctx.fillStyle)
 			ctx.rect(dots[i].x*2.5,dots[i].y*2.5,2.5,2.5)
 			ctx.fill()
-			//ctx.stroke()
 	}
 
 	//grid
