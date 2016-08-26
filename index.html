@@ -5,7 +5,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>ShopBot Webcam APP</title>
 	<style type="text/css">
-		body { font-family: Helvetica, sans-serif; }
+		body{	
+			background:#eee;
+			font-family: Helvetica, sans-serif;
+		}
+
 		h2, h3 { margin-top:0; }
 		form { margin-top: 15px; }
 		form > input { margin-right: 15px; }
@@ -17,11 +21,22 @@
 
 		#myCanvas{
 			position:absolute;
+			background:#eee;
 			left:350px;
-			top:50px;
-			background:#fff;
+			top:52px;
 			width:320px;
 			height:240px;
+		}
+		#snap{
+			width:320px;
+			height:60px;
+		}
+		#submit{
+			position:absolute;
+			display:none;
+			left:351px;
+			width:320px;
+			height:60px;
 		}
 	</style>
 </head>
@@ -30,13 +45,15 @@
 
 	<div id="results">image</div>
 	
-	<h3>webcam 320x240</h3>
+	<h3>webcam</h3>
 	
 	<div id="my_camera"></div>
 
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/webcam.min.js"></script>
 	<script type="text/javascript" src="js/paper-full.min.js"></script>
-	<script type="text/javascript" src="js/image.js"></script>	
+	<script type="text/javascript" src="js/image.js"></script>
+	<script type="text/javascript"src="js/fabmo.min.js"></script>	
 	
 	<!-- Configure a few settings and attach camera -->
 	<script language="JavaScript">
@@ -50,12 +67,16 @@
 	</script>
 	
 	<!-- A button for taking snaps -->
-	<form>
-		<input type=button value="Take Snapshot" onClick="take_snapshot()">
-	</form>
+
+	<input id="snap" type=button value="Take Snapshot" onClick="take_snapshot()">
+	<input id="submit" type=button value="Submit Job" onClick="make()">
 
 	<canvas id="myCanvas0"> </canvas>
 	<canvas id="myCanvas"> </canvas>
+
+	<script type="text/javascript">
+		var fabmo = new FabMoDashboard();
+	</script>
 
 	
 </body>
