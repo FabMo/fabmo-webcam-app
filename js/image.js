@@ -121,14 +121,14 @@ function make(){
 //console.log(zmax)
 
 
-var scale = 0.5
+var scale = 0.4
 var depth = -4 
 
 g = "g21\n"
 g += "g1f200\n"
 g += "g0z5\n"
 g += "m4\n"
-g += "g4p5\n"
+g += "g4p10\n"
 
 g+= "g0x" + (dots[0].x*scale).toFixed(3) + "y" + (-dots[0].y*scale).toFixed(3) + "\n"
 
