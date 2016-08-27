@@ -114,43 +114,38 @@ function draw(){
 
 function make(){
 
+	//multi pass
+	//cutout
 
+	var scale = 0.6
+	var depth = -3 
 
+	g = "g21\n"
+	g += "g1f350\n"
+	g += "g0z5\n"
+	g += "s7500\n"
+	g += "m4\n"
+	g += "g4p10\n"
 
-//console.log(zmin)
-//console.log(zmax)
+	g+= "g0x" + (dots[0].x*scale).toFixed(3) + "y" + (-dots[0].y*scale).toFixed(3) + "\n"
 
+	for(i=0;i<dots.length;i++){
+		g+= "g1x" + (dots[i].x*scale).toFixed(3) + "y" + (-dots[i].y*scale).toFixed(3) + "z" + ((1-((dots[i].c-zmin)*zscale))*depth).toFixed(3) + "\n"
+	}
 
-var scale = 0.4
-var depth = -4 
+	g += "g0z5\n"
+	g += "m5\n"
+	g += "g0y0x0.2\n"
+	g += "m30\n"
 
-g = "g21\n"
-g += "g1f200\n"
-g += "g0z5\n"
-g += "m4\n"
-g += "g4p10\n"
+	//console.log(g)
 
-g+= "g0x" + (dots[0].x*scale).toFixed(3) + "y" + (-dots[0].y*scale).toFixed(3) + "\n"
-
-for(i=0;i<dots.length;i++){
-	g+= "g1x" + (dots[i].x*scale).toFixed(3) + "y" + (-dots[i].y*scale).toFixed(3) + "z" + (((dots[i].c-zmin)*zscale)*depth).toFixed(3) + "\n"
-}
-
-g += "g0z5\n"
-g += "m5\n"
-g += "m30\n"
-
-//console.log(g)
-
-
-fabmo.submitJob({
-	file : g,
-	filename : 'webcam.g',
-	name : 'webcam',
-	description : 'surface'   
-})
-
-
+	fabmo.submitJob({
+		file : g,
+		filename : 'webcam.g',
+		name : 'webcam',
+		description : 'surface'   
+	})
 
 }
 
