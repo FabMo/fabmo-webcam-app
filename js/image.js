@@ -1,5 +1,7 @@
 var dots = []
-
+var zmin
+var zmax
+var zscale
 
 function take_snapshot() {
 			// take snapshot and get image data
@@ -79,9 +81,13 @@ function draw(){
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
 	ctx.strokeStyle="#fff"
 
+	zmin = Math.min.apply(this,$.map(dots, function(o){ return o.c; }))
+	zmax = Math.max.apply(this,$.map(dots, function(o){ return o.c; }))
+	zscale = 1/(zmax-zmin)
+
 	for(i=0;i<dots.length;i++){
 		ctx.beginPath()
-			ctx.fillStyle = "rgb("+ (255-(Math.round(dots[i].c*255))) + "," + (255-(Math.round(dots[i].c*255))) + "," + (255-(Math.round(dots[i].c*255))) + ")";
+			ctx.fillStyle = "rgb("+ (255-(Math.round((dots[i].c-zmin*zscale)*255))) + "," + (255-(Math.round((dots[i].c-zmin*zscale)*255))) + "," + (255-(Math.round((dots[i].c-zmin*zscale)*255))) + ")";
 			ctx.rect(dots[i].x*2.5,dots[i].y*2.5,2.5,2.5)
 			ctx.fill()
 	}
@@ -108,11 +114,18 @@ function draw(){
 
 function make(){
 
+
+
+
+//console.log(zmin)
+//console.log(zmax)
+
+
 var scale = 0.5
-var depth = -6 
+var depth = -4 
 
 g = "g21\n"
-g += "g1f750\n"
+g += "g1f200\n"
 g += "g0z5\n"
 g += "m4\n"
 g += "g4p5\n"
@@ -120,7 +133,7 @@ g += "g4p5\n"
 g+= "g0x" + (dots[0].x*scale).toFixed(3) + "y" + (-dots[0].y*scale).toFixed(3) + "\n"
 
 for(i=0;i<dots.length;i++){
-	g+= "g1x" + (dots[i].x*scale).toFixed(3) + "y" + (-dots[i].y*scale).toFixed(3) + "z" + (dots[i].c*depth*scale).toFixed(3) + "\n"
+	g+= "g1x" + (dots[i].x*scale).toFixed(3) + "y" + (-dots[i].y*scale).toFixed(3) + "z" + (((dots[i].c-zmin)*zscale)*depth).toFixed(3) + "\n"
 }
 
 g += "g0z5\n"
@@ -136,6 +149,7 @@ fabmo.submitJob({
 	name : 'webcam',
 	description : 'surface'   
 })
+
 
 
 }
